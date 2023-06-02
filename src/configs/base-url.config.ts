@@ -1,1 +1,1 @@
-export const baseUrl = 'https://quizserver.vityazgroup.ru:8034';
+export const baseUrl = 'https://quizserver.vityazgroup.ru:8034/';
