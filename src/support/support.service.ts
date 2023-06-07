@@ -7,11 +7,13 @@ import {
   SupportExitDto,
 } from "./support.model";
 import { Model } from "mongoose";
+import { HttpService } from "@nestjs/axios";
 
 @Injectable()
 export class SupportService {
   constructor(
     @InjectModel("supports") private readonly supportModel: Model<Support>,
+    private readonly httpService: HttpService,
   ) {}
 
   public async getSupports(): Promise<SupportExitDto[]> {
@@ -29,6 +31,14 @@ export class SupportService {
   }
 
   public async createSupport(support: SupportEnterDto): Promise<SupportAnswer> {
+    this.httpService
+      .post("http://quizserver.vityazgroup.ru:8005/api/message/send", {
+        data: `От РВД: ${support.username} ${support.mail} ${support.phone} ${support.text}`,
+      })
+      .subscribe({
+        next: (data: any) => console.log(data),
+        error: (err) => console.log(err),
+      });
     try {
       await this.supportModel.create({
         ...support,

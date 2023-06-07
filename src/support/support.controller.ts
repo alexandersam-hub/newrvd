@@ -1,24 +1,24 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { SupportEnterDto, SupportExitDto } from './support.model';
-import { SupportService } from './support.service';
+import { Body, Controller, Post } from "@nestjs/common";
+import { SupportEnterDto, SupportExitDto } from "./support.model";
+import { SupportService } from "./support.service";
 
-@Controller('support')
+@Controller("support")
 export class SupportController {
   constructor(private readonly supportService: SupportService) {}
 
-  @Post('create')
+  @Post("create")
   createSupport(@Body() support: SupportEnterDto) {
     return this.supportService.createSupport(support);
   }
-  @Post('update')
+  @Post("update")
   updateSupport(@Body() support: SupportExitDto) {
     return this.supportService.updateSupport(support);
   }
-  @Post('get')
+  @Post("get")
   getSupports() {
     return this.supportService.getSupports();
   }
-  @Post('remove')
+  @Post("remove")
   removeSupport(@Body() support: SupportExitDto) {
     return this.supportService.removeSupport(support);
   }
